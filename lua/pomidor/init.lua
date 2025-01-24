@@ -17,7 +17,7 @@ local M = {
 -- Initialize history file path
 local function init_history_file()
 	local config_dir = vim.fn.stdpath("data")
-	M.history_file = Path:new(config_dir .. "/pomodoro_history.json")
+	M.history_file = Path:new(config_dir .. "/pomidor_history.json")
 
 	-- Create directory if it doesn't exist
 	Path:new(config_dir):mkdir({ parents = true, exists_ok = true })
@@ -104,7 +104,7 @@ function M.start_timer(minutes, label)
 
 	M.remaining_time = minutes * 60
 	M.initial_duration = minutes
-	M.timer_label = label or "Pomodoro"
+	M.timer_label = label or "Pomidor"
 	M.is_running = true
 
 	timer:start(0, 1000, vim.schedule_wrap(tick))
@@ -134,7 +134,7 @@ function M.show_history()
 	vim.bo[buf].modifiable = true
 
 	-- Format history data
-	local lines = { "🍅 Pomodoro Session History", "" }
+	local lines = { "🍅 Pomidor Session History", "" }
 	local date_groups = {}
 
 	-- Group sessions by date
@@ -193,36 +193,36 @@ local function setup()
 	load_history()
 
 	-- Create user commands
-	api.nvim_create_user_command("PomodoroStart", function(opts)
+	api.nvim_create_user_command("PomidorStart", function(opts)
 		local args = vim.split(opts.args, " ")
 		local minutes = tonumber(args[1])
 		local label = table.concat({ unpack(args, 2) }, " ")
 		if minutes then
 			M.start_timer(minutes, label)
 		else
-			print("Usage: PomodoroStart <minutes> [label]")
+			print("Usage: PomidorStart <minutes> [label]")
 		end
 	end, {
 		nargs = "+",
-		desc = "Start a pomodoro timer",
+		desc = "Start a pomidor timer",
 	})
 
-	api.nvim_create_user_command("PomodoroStop", function()
+	api.nvim_create_user_command("PomidorStop", function()
 		M.stop_timer()
 	end, {
-		desc = "Stop the current pomodoro timer",
+		desc = "Stop the current pomidor timer",
 	})
 
-	api.nvim_create_user_command("PomodoroToggle", function()
+	api.nvim_create_user_command("PomidorToggle", function()
 		M.toggle_timer()
 	end, {
-		desc = "Pause/Resume the current pomodoro timer",
+		desc = "Pause/Resume the current pomidor timer",
 	})
 
-	api.nvim_create_user_command("PomodoroHistory", function()
+	api.nvim_create_user_command("PomidorHistory", function()
 		M.show_history()
 	end, {
-		desc = "Show pomodoro session history",
+		desc = "Show pomidor session history",
 	})
 end
 
