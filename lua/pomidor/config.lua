@@ -6,5 +6,5 @@ return {
 	config = function()
 		require("pomidor").setup()
 	end,
-	defualt_config = {},
+	default_config = {},
 }
