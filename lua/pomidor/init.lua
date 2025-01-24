@@ -1,3 +1,15 @@
+return {
+    dependencies = {
+        "rcarriga/nvim-notify",
+        "nvim-lua/plenary.nvim",
+    },
+    config = function()
+        require("pomidor").setup()
+    end,
+    default_config = {},
+}
+
+
 local api = vim.api
 local timer = vim.uv.new_timer()
 local notify = require("notify")
